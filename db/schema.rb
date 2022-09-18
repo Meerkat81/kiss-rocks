@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_17_182013) do
+ActiveRecord::Schema.define(version: 2022_09_18_181324) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
@@ -18,4 +18,21 @@ ActiveRecord::Schema.define(version: 2022_09_17_182013) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "plays", force: :cascade do |t|
+    t.integer "title_id", null: false
+    t.string "kiss_id", null: false
+    t.string "kiss_time_stamp", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "titles", force: :cascade do |t|
+    t.string "name"
+    t.integer "artist_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "plays", "titles"
+  add_foreign_key "titles", "artists"
 end
