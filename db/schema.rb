@@ -19,11 +19,11 @@ ActiveRecord::Schema.define(version: 2022_09_18_181324) do
   end
 
   create_table "plays", force: :cascade do |t|
-    t.integer "title_id", null: false
     t.string "kiss_id", null: false
     t.string "kiss_time_stamp", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title_id"
   end
 
   create_table "titles", force: :cascade do |t|
@@ -33,6 +33,5 @@ ActiveRecord::Schema.define(version: 2022_09_18_181324) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "plays", "titles"
   add_foreign_key "titles", "artists"
 end
