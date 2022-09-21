@@ -1,3 +1,3 @@
 class Title < ApplicationRecord
-	has_one :artist
+	belongs_to :artist
 end
