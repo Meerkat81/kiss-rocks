@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2022_09_19_023834) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -38,4 +41,5 @@ ActiveRecord::Schema.define(version: 2022_09_19_023834) do
 
   add_foreign_key "plays", "artists"
   add_foreign_key "plays", "titles"
+  add_foreign_key "titles", "artists"
 end
