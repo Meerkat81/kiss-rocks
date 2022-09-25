@@ -1,7 +1,7 @@
 response = HTTParty.get('https://lsp-prod.cmg.com/api/v3/histories/kissrocks.com/')
 
 scheduler = Rufus::Scheduler.new
-scheduler.every '10s' do
+scheduler.every '300s' do
 	response = HTTParty.get('https://lsp-prod.cmg.com/api/v3/histories/kissrocks.com/')
 	response.each do |song|
 		if song['isSong']
