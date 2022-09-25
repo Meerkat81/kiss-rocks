@@ -1,7 +1,7 @@
 response = HTTParty.get('https://lsp-prod.cmg.com/api/v3/histories/kissrocks.com/')
 
 scheduler = Rufus::Scheduler.new
-scheduler.every '180s' do
+scheduler.every '10s' do
 	response = HTTParty.get('https://lsp-prod.cmg.com/api/v3/histories/kissrocks.com/')
 	response.each do |song|
 		if song['isSong']
@@ -19,7 +19,8 @@ scheduler.every '180s' do
 		      new_artist.save
 		    end
 
-		    if !Title.find_by slug: song_title.parameterize
+		    added_play_artist = Artist.find_by slug: artist.parameterize
+		    if Title.joins(:artist).where("artists.id = ? AND titles.slug = ?", added_play_artist.id, song_title.parameterize).empty?
 		      title_artist = Artist.find_by slug: artist.parameterize
 		      new_title = Title.new(
 		        name: song_title,
@@ -28,7 +29,6 @@ scheduler.every '180s' do
 		      new_title.save
 		    end
 
-		    added_play_artist = Artist.find_by slug: artist.parameterize
 		    added_play_title = Title.find_by slug: song_title.parameterize
 
 		    if !Play.find_by kiss_id: kiss_id
