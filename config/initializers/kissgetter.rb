@@ -8,6 +8,8 @@ scheduler.every '180s' do
 		    artist = song['artist']
 		    song_title = song['title']
 		    kiss_time_stamp = song['timestamp']
+		    time_stamp_prep = Time.parse(kiss_time_stamp)
+
 		    kiss_id = song['id']
 
 		    if !Artist.find_by slug: artist.parameterize
@@ -34,7 +36,7 @@ scheduler.every '180s' do
 			      title_id: added_play_title.id,
 			      artist_id: added_play_artist.id,
 			      kiss_id: kiss_id,
-			      kiss_time_stamp: kiss_time_stamp)
+			      kiss_time_stamp: time_stamp_prep.to_i)
 		    	new_play.save
 		    end
 		end
