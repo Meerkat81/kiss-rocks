@@ -7,4 +7,19 @@ class ArtistsController < ApplicationController
     end
     render json:artist_prep
   end
+
+  def show
+    params
+    titles_grouped = Title.joins(:plays, :artist).where("artist.slug":params[:id]).group(:name).count
+    artist = Artist.find_by slug:params[:id]
+    title_prep = []
+    titles_grouped.each do |k,v|
+      title_prep.push({name: k, weight: v})
+    end
+
+    artist_titles = {}
+    artist_titles["name"] = artist.name
+    artist_titles["plays"] = title_prep
+    render json: artist_titles
+  end
 end
