@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 2022_09_19_023834) do
   create_table "plays", force: :cascade do |t|
     t.integer "title_id", null: false
     t.integer "artist_id", null: false
-    t.string "kiss_id", null: false
-    t.string "kiss_time_stamp", null: false
+    t.integer "kiss_id", null: false
+    t.integer "kiss_time_stamp", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
