@@ -10,16 +10,31 @@ class ArtistsController < ApplicationController
 
   def show
     params
-    titles_grouped = Title.joins(:plays, :artist).where("artist.slug":params[:id]).group(:name).count
-    artist = Artist.find_by slug:params[:id]
-    title_prep = []
-    titles_grouped.each do |k,v|
-      title_prep.push({name: k, weight: v})
-    end
+    begin
+      titles_grouped = Title.joins(:plays, :artist).where("artist.slug":params[:id]).group(:name).count
+      if !titles_grouped.empty?
+        artist = Artist.find_by slug:params[:id]
+        title_prep = []
+        titles_grouped.each do |k,v|
+          title_prep.push({name: k, weight: v})
+        end
 
-    artist_titles = {}
-    artist_titles["name"] = artist.name
-    artist_titles["plays"] = title_prep
-    render json: artist_titles
+        artist_titles = {}
+        artist_titles["name"] = artist.name
+        artist_titles["plays"] = title_prep
+        render json: artist_titles
+      else
+        redirect_to '/'
+      end
+    rescue ActiveRecord::RecordNotFound => e
+      puts e
+    end
   end
 end
+
+
+# begin
+#   my_record = Record.find params[:id]
+# rescue ActiveRecord::RecordNotFound => e
+#   my_record = nil
+# end
