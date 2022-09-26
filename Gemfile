@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'httparty'
 gem 'rufus-scheduler', '~> 3.8', '>= 3.8.2'
-
+gem 'rack-cors'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
