@@ -22,7 +22,7 @@ class ArtistsController < ApplicationController
         artist_titles = {}
         artist_titles["name"] = artist.name
         artist_titles["plays"] = title_prep
-        render json: artist_titles
+        render json: artist_titles, status: 200
       else
         redirect_to '/'
       end
